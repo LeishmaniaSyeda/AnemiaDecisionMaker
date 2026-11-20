@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#101b2d" />
+<title>Anemia: What's the Next Step?</title>
+<style>
+  :root{
+    --ink:#17243a;--muted:#65738a;--paper:#f5f6f8;--card:#ffffff;--line:#e3e8ef;
+    --navy:#101b2d;--navy2:#1a2a43;--teal:#087e82;--teal-soft:#e7f6f4;
+    --orange:#f18b52;--orange-soft:#fff0e6;--red:#bd414b;--red-soft:#fff0f0;
+    --blue:#426da8;--blue-soft:#edf3fb;--green:#2e805f;--green-soft:#eaf6ef;
+    --shadow:0 14px 40px rgba(17,34,57,.07);--radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+  button,input,select{font:inherit}
+  button{cursor:pointer}
+  a{color:inherit}
+  .topbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.08)}
+  .topbar-inner{max-width:1180px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.03em}
+  .brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#2ac2b4,#f3a06e);display:grid;place-items:center;color:#102133;font-size:19px}
+  .brand small{display:block;font-size:10px;color:#aebbd0;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-top:-3px}
+  nav{display:flex;gap:20px;align-items:center}
+  nav a{text-decoration:none;color:#c6d0df;font-size:13px;font-weight:650}
+  nav a:hover{color:#fff}
+  .top-pill{font-size:11px;color:#e6f5f3;border:1px solid rgba(89,206,192,.4);padding:6px 10px;border-radius:999px;white-space:nowrap}
+  .hero{background:radial-gradient(circle at 82% 17%,rgba(38,183,174,.18),transparent 28%),linear-gradient(135deg,#101b2d 0%,#1c304b 100%);color:#fff;padding:64px 24px 58px;overflow:hidden}
+  .hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.35fr .65fr;gap:45px;align-items:center}
+  .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#81d7cb;font-weight:800;display:flex;align-items:center;gap:9px}
+  .eyebrow:before{content:"";width:24px;height:2px;background:var(--orange)}
+  h1{font-size:clamp(37px,5vw,62px);line-height:1.03;letter-spacing:-.055em;margin:18px 0 17px;max-width:720px}
+  h1 em{font-style:normal;color:#80d6cc}
+  .hero p{max-width:640px;color:#c3cfdd;font-size:16px;margin:0 0 24px}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:9px}
+  .hero-tags span{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);padding:7px 11px;border-radius:999px;color:#d8e2ed;font-size:12px}
+  .hero-visual{border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:21px;background:rgba(255,255,255,.055);box-shadow:0 24px 60px rgba(0,0,0,.16);transform:rotate(1deg)}
+  .mini-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#95a8be;font-weight:800}
+  .mini-flow{display:grid;gap:10px;margin-top:16px}
+  .mini-step{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);padding:12px;border-radius:13px}
+  .mini-num{height:27px;width:27px;border-radius:9px;background:#d4f5ef;color:#16414a;display:grid;place-items:center;font-size:12px;font-weight:900}
+  .mini-step b{display:block;font-size:13px}.mini-step small{display:block;color:#aebed0;font-size:11px}
+  .mini-arrow{text-align:center;color:#71cfc4;font-size:15px;height:2px;line-height:2px}
+  main{max-width:1180px;margin:0 auto;padding:38px 24px 80px}
+  .section{margin:0 0 46px;scroll-margin-top:88px}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:17px}
+  .kicker{font-size:10px;color:var(--teal);font-weight:900;text-transform:uppercase;letter-spacing:.15em}
+  h2{font-size:27px;letter-spacing:-.04em;line-height:1.15;margin:5px 0 0}
+  .section-sub{font-size:13px;color:var(--muted);max-width:480px;margin:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .start-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:17px;align-items:stretch}
+  .navigator{padding:24px}
+  .navigator h3,.result h3{margin:0;font-size:18px;letter-spacing:-.025em}
+  .muted{color:var(--muted)}
+  .small{font-size:12px}
+  .field{margin-top:18px}
+  .field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
+  .field select,.search-input{width:100%;border:1px solid #d7dfe9;border-radius:11px;background:#fbfcfd;color:var(--ink);padding:11px 12px;outline:none}
+  .field select:focus,.search-input:focus{border-color:#49aaa2;box-shadow:0 0 0 3px rgba(8,126,130,.11)}
+  .hint{font-size:11px;color:#8190a3;margin-top:6px}
+  .primary-btn{margin-top:21px;width:100%;border:0;background:var(--teal);color:white;font-weight:800;padding:13px 15px;border-radius:11px;transition:.18s}
+  .primary-btn:hover{background:#06676b;transform:translateY(-1px)}
+  .secondary-btn{border:1px solid #d7e0e8;background:white;color:var(--ink);padding:9px 12px;border-radius:10px;font-weight:750;font-size:12px}
+  .secondary-btn:hover{border-color:var(--teal);color:var(--teal)}
+  .result{padding:24px;position:relative;overflow:hidden;min-height:100%}
+  .result:before{content:"";position:absolute;right:-40px;top:-55px;width:180px;height:180px;border-radius:50%;background:var(--teal-soft);z-index:0}
+  .result>*{position:relative;z-index:1}
+  .result-placeholder{display:flex;min-height:280px;align-items:center;justify-content:center;text-align:center;flex-direction:column;color:var(--muted);padding:22px}
+  .placeholder-icon{width:58px;height:58px;border-radius:18px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:25px;margin-bottom:14px}
+  .result-content{display:none}
+  .result-content.show{display:block}
+  .result-step{display:flex;gap:12px;margin:17px 0 0;padding:14px;border-radius:13px;background:#f6f9fb;border:1px solid #e9eef3}
+  .result-step .n{flex:0 0 26px;height:26px;border-radius:8px;background:var(--navy2);color:#fff;font-size:11px;font-weight:900;display:grid;place-items:center}
+  .result-step b{font-size:13px;display:block;margin:0 0 3px}.result-step p{font-size:12px;color:#637187;margin:0}
+  .callout{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:12px}
+  .callout.teal{background:var(--teal-soft);color:#145b58}.callout.orange{background:var(--orange-soft);color:#8b4e2e}.callout.red{background:var(--red-soft);color:#8d3038}
+  .tag{display:inline-flex;align-items:center;padding:5px 8px;border-radius:99px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;background:#eef2f6;color:#526174}
+  .tag.teal{background:var(--teal-soft);color:#176763}.tag.orange{background:var(--orange-soft);color:#a5572d}.tag.red{background:var(--red-soft);color:#9c3540}
+  .branch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  .branch{padding:19px 19px 17px;position:relative;overflow:hidden}
+  .branch:after{content:"";position:absolute;right:-25px;bottom:-37px;width:105px;height:105px;border-radius:50%;background:var(--wash);opacity:.9}
+  .branch-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;position:relative;z-index:1}
+  .branch-icon{height:37px;width:37px;border-radius:12px;background:var(--wash);display:grid;place-items:center;color:var(--accent);font-weight:900}
+  .branch h3{font-size:16px;margin:0}.range{font-size:11px;color:var(--muted);font-weight:700}
+  .branch p{font-size:12px;color:#5f6d81;margin:0 0 11px;position:relative;z-index:1}
+  .branch strong{font-size:12px;color:var(--ink)}
+  .branch ul{margin:8px 0 0;padding-left:17px;font-size:11px;color:#617087;position:relative;z-index:1}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .panel{padding:22px}
+  .panel h3{font-size:16px;margin:0 0 12px}
+  .panel ul{margin:0;padding-left:18px;color:#5d6b7e;font-size:12px}
+  .panel li{margin:7px 0}
+  .red-flags{border-left:4px solid var(--red)}
+  .library-tools{display:flex;gap:10px;align-items:center;max-width:440px;width:100%}
+  .library-tools input{flex:1;min-width:0}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+  .filter{background:#fff;border:1px solid #dde4ec;border-radius:99px;padding:7px 11px;font-size:11px;font-weight:800;color:#617087}
+  .filter.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .condition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+  .condition{padding:18px;display:flex;flex-direction:column;min-height:230px}
+  .condition-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+  .condition h3{margin:0;font-size:15px;letter-spacing:-.02em}
+  .condition .pattern{font-size:10px;color:var(--muted);margin-top:4px;font-weight:700}
+  .condition p{font-size:12px;color:#637187;margin:11px 0}
+  .next-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:900;margin-top:auto}
+  .condition .next{font-size:12px;color:#2a3b50;font-weight:650;margin-top:4px}
+  .condition .treat{margin-top:9px;padding-top:10px;border-top:1px solid #edf0f4;font-size:11px;color:#6b7789}
+  .condition .treat b{color:#33465e}
+  .no-results{padding:28px;text-align:center;color:var(--muted);font-size:13px;grid-column:1/-1}
+  .quiz-wrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:16px}
+  .quiz-intro{padding:23px;background:var(--navy);color:white;border-radius:var(--radius)}
+  .quiz-intro p{font-size:12px;color:#c3d0df}
+  .quiz-card{padding:23px}
+  .quiz-question{font-size:16px;font-weight:800;line-height:1.4;margin:0 0 15px}
+  .answers{display:grid;gap:8px}
+  .answer{border:1px solid #e0e6ed;background:#fff;border-radius:11px;padding:11px 13px;text-align:left;font-size:12px;color:#33435a;font-weight:700}
+  .answer:hover{border-color:#3ca49b;background:#f2fbf9}
+  .answer.correct{border-color:#50a47c;background:var(--green-soft);color:#236347}
+  .answer.wrong{border-color:#db888d;background:var(--red-soft);color:#953943}
+  .feedback{display:none;margin-top:13px;border-radius:11px;padding:12px;background:#f4f7fa;font-size:12px;color:#536378}
+  .feedback.show{display:block}
+  .quiz-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:10px}
+  .progress{font-size:11px;color:#8390a1;font-weight:750}
+  .sources{padding:23px}
+  .source-list{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+  .source-link{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #e7ecf1;border-radius:12px;text-decoration:none;background:#fbfcfd}
+  .source-link:hover{border-color:#8dc9c2;background:#f7fcfb}
+  .source-no{height:23px;min-width:23px;border-radius:7px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:10px;font-weight:900}
+  .source-link b{display:block;font-size:11px}.source-link small{display:block;font-size:10px;color:#758398;margin-top:2px}
+  .disclaimer{background:#fff8ed;border:1px solid #f2dfc5;color:#76512e;border-radius:14px;padding:14px 16px;font-size:11px;margin-top:18px}
+  footer{background:#101b2d;color:#9caec2;padding:22px 24px;font-size:11px}
+  .footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .mobile-menu{display:none}
+  @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-visual{max-width:500px}.start-grid{grid-template-columns:1fr}.condition-grid{grid-template-columns:repeat(2,1fr)}.branch-grid{grid-template-columns:1fr}.quiz-wrap{grid-template-columns:1fr}}
+  @media(max-width:620px){.topbar-inner{padding:11px 16px}nav{display:none}.top-pill{font-size:9px}.hero{padding:48px 18px}.hero-inner{gap:26px}main{padding:28px 16px 58px}.section-head{display:block}.section-sub{margin-top:8px}.two-col{grid-template-columns:1fr}.condition-grid{grid-template-columns:1fr}.source-list{grid-template-columns:1fr}.navigator,.result,.panel,.quiz-card,.sources{padding:18px}.hero-visual{padding:15px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><div class="brand-mark">✚</div><div>ANEMIA / NEXT STEP<small>Clinical reasoning, one decision at a time</small></div></div>
+    <nav><a href="#navigator">Navigator</a><a href="#approach">Approach</a><a href="#library">Treatment library</a><a href="#quiz">Case practice</a></nav>
+    <div class="top-pill">ADULT LEARNING TOOL</div>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">The clinical reasoning guide</div>
+      <div style="font-size:12px;color:#c3cfdd;font-weight:700;letter-spacing:.04em;margin-top:10px">By Rayan Syed</div>
+      <h1>Don't just find low Hb.<br><em>Find the next step.</em></h1>
+      <p>Anemia is a sign, not a final diagnosis. Use the blood count, reticulocyte response and a few targeted tests to work out what is happening, what to investigate next and how treatment changes with the cause.</p>
+      <div class="hero-tags"><span>MCV-first framework</span><span>Reticulocyte-led reasoning</span><span>Cause-specific treatment</span><span>Case-based learning</span></div>
+    </div>
+    <div class="hero-visual">
+      <div class="mini-label">The reasoning sequence</div>
+      <div class="mini-flow">
+        <div class="mini-step"><span class="mini-num">01</span><div><b>Confirm & assess stability</b><small>Is this an emergency?</small></div></div>
+        <div class="mini-arrow">↓</div>
+        <div class="mini-step"><span class="mini-num">02</span><div><b>Read the CBC + retics</b><small>Cell size and marrow response</small></div></div>
+        <div class="mini-arrow">↓</div>
+        <div class="mini-step"><span class="mini-num">03</span><div><b>Choose targeted tests</b><small>Test the leading mechanism</small></div></div>
+        <div class="mini-arrow">↓</div>
+        <div class="mini-step"><span class="mini-num">04</span><div><b>Treat cause + reassess</b><small>Check response; don't guess</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<main>
+  <section class="section" id="navigator">
+    <div class="section-head"><div><div class="kicker">01 / Start here</div><h2>Find the next investigation</h2></div><p class="section-sub">Choose the pattern you have. The navigator gives a sensible next step, not a magical diagnosis from three dropdowns.</p></div>
+    <div class="start-grid">
+      <div class="card navigator">
+        <h3>What does the CBC show?</h3>
+        <p class="muted small">Use adult reference patterns. If a result is unknown, leave it as unknown.</p>
+        <div class="field"><label for="mcv">1. MCV pattern</label><select id="mcv"><option value="unknown">Not known / not available</option><option value="micro">Microcytic (&lt;80 fL)</option><option value="normo">Normocytic (80–100 fL)</option><option value="macro">Macrocytic (&gt;100 fL)</option></select><div class="hint">MCV is a direction, not a diagnosis. Mixed deficiencies can disguise the average.</div></div>
+        <div class="field"><label for="retic">2. Reticulocyte response</label><select id="retic"><option value="unknown">Not checked / unsure</option><option value="low">Low or inappropriately normal</option><option value="high">High / appropriately increased</option></select><div class="hint">Use an absolute reticulocyte count or corrected reticulocyte production index when possible.</div></div>
+        <div class="field"><label for="clue">3. Strongest clinical or lab clue</label><select id="clue"><option value="none">No clear clue yet</option><option value="iron">Low ferritin / low iron stores</option><option value="thal">Marked microcytosis, relatively high RBC count or family history</option><option value="inflammation">Chronic infection, inflammation, cancer or autoimmune disease</option><option value="hemolysis">Jaundice, dark urine, raised LDH or indirect bilirubin</option><option value="b12">Neuropathy, glossitis, vegan diet or low B12</option><option value="folate">Poor diet, alcohol use or low folate</option><option value="renal">Known chronic kidney disease</option><option value="pancytopenia">Low white cells or platelets as well</option><option value="bleeding">Recent bleeding or heavy menstrual / GI blood loss</option></select></div>
+        <button class="primary-btn" id="runNav">Show my next step →</button>
+      </div>
+      <div class="card result">
+        <div class="result-placeholder" id="placeholder"><div class="placeholder-icon">⌕</div><h3>Waiting for the pattern</h3><p class="small">Your next step will appear here, with the reasoning and the test that should come next.</p></div>
+        <div class="result-content" id="resultContent" aria-live="polite">
+          <div class="tag teal" id="resultTag">NEXT STEP</div>
+          <h3 id="resultTitle" style="margin-top:10px">Start with the reticulocyte count</h3>
+          <p class="muted small" id="resultLead"></p>
+          <div id="resultSteps"></div>
+          <div class="callout teal" id="resultPearl"></div>
+          <button class="secondary-btn" style="margin-top:15px" id="resetNav">Reset navigator</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="approach">
+    <div class="section-head"><div><div class="kicker">02 / The mental model</div><h2>Three patterns. Different questions.</h2></div><p class="section-sub">MCV narrows the field. The reticulocyte response tells you whether the marrow is keeping up.</p></div>
+    <div class="branch-grid">
+      <article class="card branch" style="--wash:#fff0e6;--accent:#c86e3b">
+        <div class="branch-head"><div class="branch-icon">↓</div><div><h3>Microcytic</h3><div class="range">MCV &lt;80 fL</div></div></div>
+        <p><strong>Question:</strong> Can the marrow make haemoglobin?</p>
+        <p>Think impaired haemoglobin synthesis. Iron deficiency is common, but thalassaemia trait and inflammation can look similar.</p>
+        <ul><li>Ferritin ± CRP, iron profile / TSAT</li><li>RBC count, RDW and blood film</li><li>Hb electrophoresis / HPLC if indicated</li></ul>
+      </article>
+      <article class="card branch" style="--wash:#e9f5f7;--accent:#347c93">
+        <div class="branch-head"><div class="branch-icon">↔</div><div><h3>Normocytic</h3><div class="range">MCV 80–100 fL</div></div></div>
+        <p><strong>Question:</strong> Is blood being lost / destroyed, or not produced?</p>
+        <p>Retics split the pathway: a strong response suggests loss or destruction; a weak response suggests underproduction.</p>
+        <ul><li>High retics: bleeding or haemolysis</li><li>Low retics: renal, inflammatory, endocrine or marrow causes</li><li>Check other cell lines and the smear</li></ul>
+      </article>
+      <article class="card branch" style="--wash:#f0edfb;--accent:#7161a8">
+        <div class="branch-head"><div class="branch-icon">↑</div><div><h3>Macrocytic</h3><div class="range">MCV &gt;100 fL</div></div></div>
+        <p><strong>Question:</strong> Is DNA synthesis impaired, or are cells simply larger?</p>
+        <p>B12 and folate deficiency cause megaloblastosis. Alcohol, liver disease, hypothyroidism, drugs and reticulocytosis can also raise MCV.</p>
+        <ul><li>Blood film + reticulocyte count</li><li>B12 and folate; consider MMA if uncertain</li><li>Review alcohol, liver, thyroid and medicines</li></ul>
+      </article>
+    </div>
+    <div class="two-col" style="margin-top:16px">
+      <div class="card panel"><h3>Start every work-up with</h3><ul><li>Confirm anemia: in adults, Hb &lt;13 g/dL in men or &lt;12 g/dL in non-pregnant women (use age-, sex- and pregnancy-specific ranges where relevant)</li><li>CBC including WBC, platelets, RBC count, MCV and RDW</li><li>Reticulocyte count (absolute count or corrected index)</li><li>Peripheral blood smear</li><li>History and examination directed at bleeding, diet, drugs, chronic disease, family history and haemolysis</li></ul></div>
+      <div class="card panel red-flags"><h3>Stop the routine algorithm if you see these</h3><ul><li>Haemodynamic instability, active major bleeding, syncope, chest pain or breathlessness at rest</li><li>Rapid Hb fall or suspected acute haemolysis</li><li>Schistocytes with thrombocytopenia, or suspected TTP / DIC</li><li>Pancytopenia, blasts, severe neutropenia or a rapidly evolving blood film</li><li>New neurological signs with suspected B12 deficiency</li></ul><div class="callout red">Urgent clinical assessment / emergency care is needed. This learning tool is not a triage service.</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="library">
+    <div class="section-head"><div><div class="kicker">03 / What to do once you know</div><h2>Treatment library</h2></div><div class="library-tools"><input class="search-input" type="search" id="searchConditions" placeholder="Search a condition or clue…" aria-label="Search conditions"></div></div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">All patterns</button><button class="filter" data-filter="micro">Microcytic</button><button class="filter" data-filter="normo">Normocytic</button><button class="filter" data-filter="macro">Macrocytic</button><button class="filter" data-filter="other">Other / urgent</button>
+    </div>
+    <div class="condition-grid" id="conditionGrid"></div>
+    <div class="disclaimer"><b>Clinical-use note:</b> Treatment details below are educational starting points for adults, not prescriptions. Doses vary with the preparation, cause, severity, comorbidities, pregnancy status and local protocol. Children, pregnancy, transfusion decisions and complex haematological disorders need dedicated pathways and clinician oversight.</div>
+  </section>
+
+  <section class="section" id="quiz">
+    <div class="section-head"><div><div class="kicker">04 / Think it through</div><h2>Three-minute case practice</h2></div><p class="section-sub">The point is not memorising the label. It's choosing the next useful test.</p></div>
+    <div class="quiz-wrap">
+      <div class="quiz-intro"><div class="eyebrow">Clinical reasoning reps</div><h3 style="font-size:22px;line-height:1.15;letter-spacing:-.04em;margin:14px 0 8px">Don't jump to the treatment.</h3><p>Read the pattern. Ask what mechanism fits. Then choose the test that actually moves the diagnosis forward.</p><div class="tag" style="background:rgba(255,255,255,.1);color:#d7e4ee;margin-top:8px">3 short cases</div></div>
+      <div class="card quiz-card">
+        <div class="progress" id="quizProgress">CASE 1 / 3</div>
+        <p class="quiz-question" id="quizQuestion"></p>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback" aria-live="polite"></div>
+        <div class="quiz-bottom"><span class="progress" id="quizScore">Score: 0 / 3</span><button class="secondary-btn" id="nextCase" disabled>Next case →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="section-head"><div><div class="kicker">05 / Read beyond the screen</div><h2>Sources & further reading</h2></div><p class="section-sub">Guidelines change. The linked source should win over a simplified summary on this page.</p></div>
+    <div class="card sources">
+      <p class="muted small" style="margin:0">The core diagnostic framework follows standard adult anemia evaluation. Condition-specific treatment notes draw on the references below, including current CKD guidance and B12 recommendations.</p>
+      <div class="source-list">
+        <a class="source-link" href="https://www.merckmanuals.com/professional/hematology/approach-to-the-patient-with-anemia/evaluation-of-anemia" target="_blank" rel="noopener"><span class="source-no">01</span><span><b>Merck Manual Professional: Evaluation of Anemia</b><small>CBC, indices, reticulocytes, smear and differential patterns · reviewed Oct 2026</small></span></a>
+        <a class="source-link" href="https://www.bsg.org.uk/clinical-resource/guidelines-iron-deficiency-anaemia-in-adults" target="_blank" rel="noopener"><span class="source-no">02</span><span><b>British Society of Gastroenterology: Iron Deficiency Anaemia in Adults</b><small>Investigation, oral / IV iron and follow-up · review page 2026</small></span></a>
+        <a class="source-link" href="https://www.cghjournal.org/article/S1542-3565(24)00410-5/fulltext" target="_blank" rel="noopener"><span class="source-no">03</span><span><b>AGA Clinical Practice Update: Management of Iron Deficiency Anemia</b><small>Oral iron frequency and indications for IV iron · 2024</small></span></a>
+        <a class="source-link" href="https://www.nice.org.uk/guidance/ng239/chapter/Recommendations" target="_blank" rel="noopener"><span class="source-no">04</span><span><b>NICE NG239: Vitamin B12 Deficiency</b><small>Diagnosis, treatment, malabsorption and neurological symptoms · 2024</small></span></a>
+        <a class="source-link" href="https://kdigo.org/guidelines/anemia-in-ckd/" target="_blank" rel="noopener"><span class="source-no">05</span><span><b>KDIGO 2026: Anemia in Chronic Kidney Disease</b><small>Iron assessment, iron replacement and ESA decision-making · 2026</small></span></a>
+        <a class="source-link" href="https://ashpublications.org/bloodadvances/article/10/21/7353/570502/American-Society-of-Hematology-2026-guidelines-for" target="_blank" rel="noopener"><span class="source-no">06</span><span><b>ASH 2026: Guidelines for Diagnosis of Iron Deficiency</b><small>Ferritin interpretation, including inflammation · 2026</small></span></a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="footer-inner"><span>ANEMIA / NEXT STEP · Built for learning clinical reasoning</span><span>Not a substitute for examination, local protocols or specialist advice.</span></div></footer>
+<script>
+const pathways = {
+  unknown: {
+    tag:'FIRST MOVE', title:'Get the pattern before ordering the universe', lead:'The first pass is a CBC with indices, reticulocytes and a peripheral smear. Then branch by MCV and marrow response.',
+    steps:[['Confirm the result','Check Hb against the appropriate adult reference range and review prior values. Consider dilution, sampling and the speed of change.'],['Read the whole CBC','Look at MCV, RDW, RBC count, WBCs and platelets. More than one low cell line changes the urgency.'],['Measure marrow response','Order an absolute reticulocyte count or calculate a corrected reticulocyte production index.'],['Branch intelligently','Microcytic → iron studies; normocytic → retics first; macrocytic → smear, B12 and folate.']], pearl:'Do not prescribe iron just because Hb is low. First establish whether iron deficiency is actually present and look for its cause.'
+  },
+  micro: {
+    tag:'MICROCYTIC PATHWAY', title:'Check ferritin and iron availability first', lead:'Microcytosis usually points to impaired haemoglobin synthesis. The key early distinction is iron deficiency versus thalassaemia trait versus inflammation.',
+    steps:[['Order ferritin + CRP','Ferritin is the most useful initial marker of iron stores, but inflammation can make it look reassuringly normal or high. Add transferrin saturation / iron profile when the picture is unclear.'],['Low ferritin?','Treat iron deficiency and investigate why: menstrual loss, GI blood loss, diet, malabsorption or increased requirements. In adult men and postmenopausal women, unexplained IDA needs GI evaluation.'],['Ferritin not low?','Review TSAT, CRP, RBC count, RDW and smear. Low iron with low TIBC and raised ferritin suggests inflammation; disproportionate microcytosis with a relatively high RBC count suggests thalassaemia trait.'],['Choose the confirmatory test','Consider Hb electrophoresis / HPLC for suspected beta-thalassaemia or another haemoglobinopathy. Alpha-thalassaemia trait may have a normal electrophoresis; discuss further testing if suspicion remains.']], pearl:'A normal ferritin does not rule out iron deficiency when inflammation is present. Interpret ferritin with the clinical context and TSAT.'
+  },
+  normo: {
+    tag:'NORMOCYTIC PATHWAY', title:'Let the reticulocyte count split the road', lead:'Normocytic anemia is a pattern shared by blood loss, haemolysis, kidney disease, inflammation and marrow underproduction.',
+    steps:[['High reticulocyte response','Think acute / ongoing blood loss or haemolysis. Ask about bleeding and order LDH, indirect bilirubin, haptoglobin, DAT and a smear when haemolysis is suspected.'],['Low or inappropriately normal retics','Think inadequate production: CKD, inflammation, endocrine disease, iron / B12 / folate deficiency or marrow disease. Check renal function, iron studies, CRP, B12 / folate and TSH as guided by context.'],['Inspect the other cell lines','Low WBCs or platelets, abnormal cells, teardrops or blasts are not a routine isolated anemia. Escalate for urgent haematology assessment.'],['Reassess the context','A mixed deficiency can produce a normal MCV. Review RDW, smear, recent transfusion, fluid status and trends.']], pearl:'A “normal” reticulocyte percentage can still be inadequate in someone who is anaemic. Use the absolute count or a corrected index.'
+  },
+  macro: {
+    tag:'MACROCYTIC PATHWAY', title:'Separate megaloblastic from non-megaloblastic', lead:'Macrocytosis is not synonymous with B12 deficiency. The smear and reticulocyte response help sort impaired DNA synthesis from other causes.',
+    steps:[['Check B12 and folate','Review diet, alcohol, GI surgery / malabsorption and medications. Consider MMA when B12 is borderline or clinical suspicion remains.'],['Look for megaloblastosis','Macro-ovalocytes and hypersegmented neutrophils support B12 / folate deficiency. Neuropathy or spinal-cord signs make B12 deficiency urgent.'],['Look beyond vitamins','Alcohol, liver disease, hypothyroidism, reticulocytosis, hydroxyurea / cytotoxic drugs and myelodysplasia can raise MCV. Order LFTs, TSH and further tests based on context.'],['Protect the nervous system','If B12 deficiency is suspected with neurological features, take diagnostic bloods first when feasible but do not delay B12 replacement while awaiting results.']], pearl:'Do not give folic acid alone until B12 deficiency has been excluded or treated. The blood count may improve while neurological injury continues.'
+  },
+  iron: {
+    tag:'LIKELY IRON DEFICIENCY', title:'Treat the deficiency and find the leak', lead:'Low ferritin supports depleted iron stores. Iron replacement is only half the job; the source of iron loss or poor absorption must be identified.',
+    steps:[['Establish the cause','Ask about heavy menstrual bleeding, pregnancy, diet, blood donation, NSAIDs, GI symptoms, coeliac disease and prior GI surgery. Assess GI investigation needs by age, sex and risk.'],['Start oral iron when appropriate','A common adult starting approach is one standard ferrous salt tablet daily (often around 40–65 mg elemental iron); use alternate-day dosing if not tolerated. Check the elemental iron content of the actual product.'],['Check the response','Recheck Hb within about 2–4 weeks. A rising Hb supports response. If not responding, reassess adherence, diagnosis, ongoing loss, malabsorption and inflammation.'],['Replete the stores','Continue iron for around 3 months after Hb normalises, with follow-up tailored to recurrence risk. Consider IV iron if oral iron is ineffective, contraindicated, poorly tolerated or too slow for the clinical need.']], pearl:'A low Hb in an adult man or postmenopausal woman with iron deficiency is a reason to investigate occult blood loss, not just hand out iron.'
+  },
+  thal: {
+    tag:'HAEMOGLOBINOPATHY CLUE', title:'Confirm the haemoglobinopathy before treating', lead:'Marked microcytosis out of proportion to the anemia, a relatively high RBC count and a suggestive family history raise suspicion for thalassaemia trait.',
+    steps:[['Check iron status too','Coexisting iron deficiency is possible. Do not assume every microcytic patient has thalassaemia, or every thalassaemia carrier has normal iron stores.'],['Order Hb HPLC / electrophoresis','Useful for beta-thalassaemia trait and many variants. Iron deficiency may affect HbA2 interpretation, so interpret the result in context.'],['If the test is unrevealing','Alpha-thalassaemia trait can have normal electrophoresis. Consider family studies or molecular testing with specialist guidance.'],['Counsel and avoid harm','Thalassaemia trait generally needs no iron unless deficiency is proven. Offer genetic / partner counselling where relevant. Transfusion-dependent disease needs specialist transfusion and iron-chelation care.']], pearl:'Do not repeatedly prescribe iron to a thalassaemia carrier with adequate iron stores. More tablets are not more medicine.'
+  },
+  inflammation: {
+    tag:'INFLAMMATION PATTERN', title:'Treat the driver and check for absolute iron deficiency', lead:'Inflammation increases hepcidin, trapping iron in storage sites and reducing intestinal absorption. Ferritin may be normal or high despite restricted iron availability.',
+    steps:[['Check CRP / clinical inflammation','Look for chronic infection, autoimmune disease, cancer, heart failure or CKD.'],['Interpret iron studies together','Serum iron and TSAT may be low while TIBC is low / normal and ferritin is normal / high. Ferritin alone can mislead.'],['Look for a mixed picture','Low TSAT or lower-than-expected ferritin can indicate coexisting absolute iron deficiency. Apply context-specific thresholds and local guidance.'],['Treat the underlying disorder','Iron is not automatically the answer. Treat the inflammatory driver; consider iron replacement when absolute deficiency coexists, and specialist input for selected ESA use.']], pearl:'Functional iron restriction and true iron depletion can coexist. The job is to distinguish them, not pick one blindly.'
+  },
+  hemolysis: {
+    tag:'POSSIBLE HAEMOLYSIS', title:'Confirm haemolysis and identify its mechanism', lead:'Jaundice, dark urine, reticulocytosis or raised LDH / indirect bilirubin should trigger a haemolysis work-up.',
+    steps:[['Order a haemolysis panel','LDH, indirect bilirubin, haptoglobin, reticulocyte count, urinalysis and peripheral smear.'],['Classify the mechanism','DAT (direct antiglobulin test) helps assess immune haemolysis. Smear may show spherocytes, schistocytes, bite cells or sickled cells.'],['Look for the trigger','Review medications, infection, transfusion history, autoimmune disease, prosthetic valves and inherited disorders such as G6PD deficiency.'],['Escalate according to severity','Acute symptomatic haemolysis, haemoglobinuria, schistocytes / thrombocytopenia or organ compromise needs urgent specialist care. Treatment is cause-specific.']], pearl:'Schistocytes plus thrombocytopenia can signal a thrombotic microangiopathy. Do not sit on that result.'
+  },
+  b12: {
+    tag:'B12 DEFICIENCY CLUE', title:'Replace B12 and protect neurological function', lead:'B12 deficiency can cause megaloblastic anemia and neurological injury. Neurological symptoms make timely treatment especially important.',
+    steps:[['Take diagnostic bloods','CBC, blood film, B12 and folate; consider methylmalonic acid when the B12 result is indeterminate. Ask about diet, metformin / acid suppression, nitrous oxide, autoimmune gastritis and ileal disease / surgery.'],['Do not delay for neurological disease','If megaloblastic anemia with neurological features is suspected, start B12 replacement promptly while completing evaluation.'],['Choose route by cause and severity','Oral high-dose B12 can be appropriate in selected dietary deficiency. NICE advises at least 1 mg/day orally when malabsorption is suspected if oral treatment is used; IM replacement is preferred in important malabsorption / irreversible causes or when clinically indicated.'],['Treat the cause and plan follow-up','Autoimmune gastritis, total gastrectomy or complete terminal ileal resection generally requires lifelong IM replacement. Review symptoms and response.']], pearl:'Never treat presumed folate deficiency with folic acid alone until B12 deficiency has been excluded or covered.'
+  },
+  folate: {
+    tag:'FOLATE DEFICIENCY CLUE', title:'Replace folate, but check B12 first', lead:'Folate deficiency impairs DNA synthesis and causes megaloblastic anemia, usually without the classic B12-related neurological syndrome.',
+    steps:[['Confirm deficiency and context','Check folate and B12. Review poor intake, alcohol use, malabsorption, pregnancy / increased demand and antifolate medicines.'],['Exclude B12 deficiency','B12 deficiency can coexist. Giving folate alone may correct the anemia while neurological damage from B12 deficiency progresses.'],['Replace folate','A common adult regimen is folic acid 5 mg orally once daily for about 4 months; adjust duration to cause and local guidance.'],['Fix the reason','Improve dietary intake, address alcohol use or malabsorption and review causative medicines with the prescriber.']], pearl:'B12 first, or B12 alongside folate when both are deficient. The nervous system does not care that the MCV looks prettier.'
+  },
+  renal: {
+    tag:'CKD-ASSOCIATED ANEMIA', title:'Check iron before blaming erythropoietin', lead:'CKD reduces erythropoietin production, but iron deficiency, inflammation, blood loss and other causes may coexist.',
+    steps:[['Screen systematically','CBC, reticulocytes, ferritin and TSAT. Review renal function, bleeding, inflammation, B12 / folate and other causes as indicated.'],['Correct iron deficiency','KDIGO 2026 supports iron therapy using ferritin / TSAT thresholds and clinical context. In haemodialysis, IV iron is generally preferred when iron treatment is started; in non-dialysis CKD, oral or IV depends on the situation.'],['Consider ESA only after correction','Nephrology-led decision based on symptoms, Hb, transfusion risk and ESA harms after correctable causes are addressed.'],['Monitor conservatively','Use the lowest effective ESA dose. KDIGO recommends not maintaining Hb at or above 11.5 g/dL in adults receiving ESA therapy.']], pearl:'CKD is not a licence to skip ferritin and TSAT. Check the substrate before stimulating the factory.'
+  },
+  pancytopenia: {
+    tag:'URGENT MARROW CLUE', title:'Think beyond isolated anemia', lead:'Anemia plus leukopenia and / or thrombocytopenia raises concern for marrow failure, infiltration, dysplasia, severe deficiency or systemic disease.',
+    steps:[['Review the smear urgently','Look for blasts, dysplasia, tear-drop cells, nucleated RBCs, schistocytes and abnormal white-cell morphology.'],['Check reversible causes','B12 / folate, medications and toxins, infection, liver / spleen disease and relevant autoimmune or systemic causes.'],['Escalate to haematology','Aplastic anemia, leukemia, myelodysplastic syndrome and marrow infiltration require specialist investigation; marrow examination may be needed.'],['Do not mask the signal','Avoid empiric treatment that delays evaluation, particularly with fever, bleeding, severe neutropenia or blasts.']], pearl:'Two or three cytopenias are a different clinical problem from isolated anemia. Respect the pattern.'
+  },
+  bleeding: {
+    tag:'POSSIBLE BLOOD LOSS', title:'Control the source and assess stability', lead:'Acute blood loss can initially be normocytic. Chronic loss can gradually deplete iron and become microcytic.',
+    steps:[['Assess ABCs and haemodynamics','Look for tachycardia, hypotension, shock, syncope, chest pain, active GI / obstetric / traumatic bleeding and rapid Hb change.'],['Find and control the source','Target examination and investigations to GI, menstrual, urinary, surgical or traumatic blood loss. Resuscitation and haemorrhage control take priority in unstable patients.'],['Interpret Hb with timing','Hb can initially underestimate acute blood loss before fluid equilibration. Trends and clinical status matter.'],['Check iron after stabilisation','For chronic blood loss, assess ferritin / TSAT and replace iron while treating the cause.']], pearl:'Transfusion decisions depend on the whole clinical picture, not one Hb number in isolation.'
+  }
+};
+
+const conditions = [
+ {name:'Iron deficiency anemia',cat:'micro',pattern:'Usually microcytic; can be normocytic early',clue:'Low ferritin; often raised RDW',next:'Ferritin + CRP, then identify source of iron loss / poor absorption.',treat:'Oral ferrous salt once daily (often 40–65 mg elemental iron); alternate-day if intolerance. Review Hb in 2–4 weeks; continue ~3 months after Hb normalises. IV iron if oral is unsuitable or ineffective.'},
+ {name:'Thalassaemia trait',cat:'micro',pattern:'Microcytosis often disproportionate to anemia',clue:'Relatively high RBC count; target cells; family history',next:'Iron profile, then Hb HPLC / electrophoresis; alpha-thal may need further testing.',treat:'Usually no specific treatment. Give iron only if deficiency is proven. Consider genetic counselling.'},
+ {name:'Anemia of inflammation',cat:'micro normo',pattern:'Often normocytic; sometimes microcytic',clue:'Low iron / TSAT, low or normal TIBC, normal-high ferritin',next:'CRP / clinical context plus ferritin and TSAT to identify mixed iron deficiency.',treat:'Treat the underlying inflammatory condition. Replace iron when absolute deficiency coexists; selected cases need specialist-directed therapy.'},
+ {name:'Sideroblastic anemia',cat:'micro other',pattern:'Often microcytic or dimorphic',clue:'Iron may be normal / high; basophilic stippling or dimorphic film',next:'Review alcohol, drugs (e.g. isoniazid), copper / B6 context; specialist assessment and marrow if indicated.',treat:'Remove the cause where possible. Pyridoxine helps selected responsive forms; MDS-associated cases require haematology care.'},
+ {name:'Vitamin B12 deficiency',cat:'macro',pattern:'Macrocytic / megaloblastic; can be normocytic if mixed',clue:'Macro-ovalocytes, hypersegmented neutrophils, neuropathy, low B12',next:'B12, folate, smear; MMA if result is indeterminate. Investigate cause.',treat:'Prompt replacement; IM when neurological disease or significant / irreversible malabsorption is present. Oral high-dose can suit selected cases. Lifelong IM for autoimmune gastritis, total gastrectomy or complete terminal ileal resection.'},
+ {name:'Folate deficiency',cat:'macro',pattern:'Macrocytic / megaloblastic',clue:'Low folate; nutritional deficiency, alcohol, malabsorption or increased demand',next:'Check B12 before giving folate; assess diet, alcohol, drugs and malabsorption.',treat:'Common adult regimen: folic acid 5 mg orally daily for about 4 months, alongside correction of the cause.'},
+ {name:'Alcohol / liver-related macrocytosis',cat:'macro',pattern:'Macrocytosis, sometimes without anemia',clue:'Alcohol history, abnormal LFTs, round macrocytes / target cells',next:'History, LFTs, smear, nutrition, B12 / folate and thyroid tests as indicated.',treat:'Address alcohol use and liver disease; replace proven deficiencies. MCV can take time to normalise.'},
+ {name:'Hemolytic anemia',cat:'normo other',pattern:'Usually normocytic with reticulocytosis',clue:'Raised LDH / indirect bilirubin, low haptoglobin, jaundice, dark urine',next:'Haemolysis panel, DAT and smear; investigate immune, mechanical, infectious and inherited causes.',treat:'Cause-specific. Warm autoimmune hemolysis, G6PD-related hemolysis and microangiopathic hemolysis have very different management; urgent specialist input may be needed.'},
+ {name:'Chronic kidney disease anemia',cat:'normo other',pattern:'Usually normocytic, hypoproliferative',clue:'Known CKD; low / inappropriately normal reticulocytes',next:'CBC, retics, ferritin, TSAT; exclude bleeding, inflammation, B12 / folate and other causes.',treat:'Correct iron deficiency first. ESA is a nephrology-led decision after reversible causes are addressed; avoid normalising Hb aggressively.'},
+ {name:'Acute blood loss',cat:'normo other',pattern:'Initially normocytic',clue:'Bleeding, tachycardia, hypotension, syncope or rapid Hb fall',next:'Assess haemodynamic stability and control the source; Hb trend may lag behind acute loss.',treat:'Resuscitation and haemorrhage control take priority. Transfusion depends on instability, ongoing bleeding, symptoms and context, not Hb alone.'},
+ {name:'Aplastic anemia / marrow failure',cat:'other',pattern:'Often normocytic; may be macrocytic',clue:'Low retics with pancytopenia; hypocellular marrow',next:'Urgent smear review, medication / toxin / infection review and haematology referral; marrow evaluation.',treat:'Specialist treatment may include stem-cell transplantation or immunosuppression (e.g. ATG + ciclosporin ± eltrombopag), selected by age, donor and disease severity.'},
+ {name:'Sickle cell disease',cat:'other normo',pattern:'Usually chronic hemolytic anemia; reticulocytosis',clue:'Hb variant on HPLC; pain crises, jaundice, family history',next:'Confirm genotype with HPLC / electrophoresis; assess complications and baseline organ function.',treat:'Comprehensive specialist care. Hydroxyurea is disease-modifying for appropriate patients with blood-count and safety monitoring; transfusion is reserved for defined indications.'},
+ {name:'Transfusion-dependent thalassaemia',cat:'other micro',pattern:'Severe microcytic anemia from early life',clue:'Known thalassaemia; regular transfusion history; iron overload risk',next:'Haematology / thalassaemia centre; quantify iron burden and assess cardiac, liver and endocrine complications.',treat:'Regular transfusions plus iron chelation and multidisciplinary monitoring. Do not attempt to manage this as routine iron deficiency.'}
+];
+function buildResult(data){
+  document.getElementById('placeholder').style.display='none';
+  const box=document.getElementById('resultContent');box.classList.add('show');
+  document.getElementById('resultTag').textContent=data.tag;
+  document.getElementById('resultTitle').textContent=data.title;
+  document.getElementById('resultLead').textContent=data.lead;
+  document.getElementById('resultSteps').innerHTML=data.steps.map((s,i)=>`<div class="result-step"><span class="n">${i+1}</span><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('');
+  document.getElementById('resultPearl').textContent=data.pearl;
+}
+function runNavigator(){
+ const mcv=document.getElementById('mcv').value,retic=document.getElementById('retic').value,clue=document.getElementById('clue').value;
+ let key='unknown';
+ if(clue!=='none') key=clue;
+ else if(mcv==='micro') key='micro'; else if(mcv==='normo') key='normo'; else if(mcv==='macro') key='macro';
+ if(key==='normo' && retic==='low') key='normo';
+ if(key==='micro' && retic==='high') key='micro';
+ if(key==='macro' && retic==='high') key='macro';
+ buildResult(pathways[key]||pathways.unknown);
+}
+document.getElementById('runNav').addEventListener('click',runNavigator);
+document.getElementById('resetNav').addEventListener('click',()=>{document.getElementById('mcv').value='unknown';document.getElementById('retic').value='unknown';document.getElementById('clue').value='none';document.getElementById('resultContent').classList.remove('show');document.getElementById('placeholder').style.display='flex'});
+
+let currentFilter='all';
+function renderConditions(){
+ const q=document.getElementById('searchConditions').value.toLowerCase().trim();
+ const matches=conditions.filter(c=>{
+   const categoryMatch=currentFilter==='all'||(currentFilter==='other'?c.cat.includes('other'):c.cat.split(' ').includes(currentFilter));
+   return categoryMatch && (c.name+' '+c.pattern+' '+c.clue+' '+c.next+' '+c.treat).toLowerCase().includes(q);
+ });
+ document.getElementById('conditionGrid').innerHTML=matches.length?matches.map(c=>`<article class="card condition"><div class="condition-top"><span class="tag ${c.cat.includes('micro')?'orange':c.cat.includes('macro')?'':'teal'}">${c.cat.includes('micro')?'MICROCYTIC':c.cat.includes('macro')?'MACROCYTIC':c.cat.includes('normo')?'NORMOCYTIC':'OTHER'}</span></div><h3>${c.name}</h3><div class="pattern">${c.pattern}</div><p><b>Clue:</b> ${c.clue}</p><div class="next-label">Next step</div><div class="next">${c.next}</div><div class="treat"><b>Treatment principle:</b> ${c.treat}</div></article>`).join(''):'<div class="no-results">No matching condition. Try another search.</div>';
+}
+document.getElementById('searchConditions').addEventListener('input',renderConditions);
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');currentFilter=btn.dataset.filter;renderConditions()}));
+renderConditions();
+
+const cases=[
+ {q:'A 24-year-old woman reports fatigue and heavy menstrual bleeding. Hb is low, MCV 71 fL, RDW is raised and ferritin is 7 ng/mL. What is the best next step?',a:['Start lifelong B12 injections','Treat iron deficiency and investigate the source of blood loss','Order a bone marrow biopsy','Start hydroxyurea'],correct:1,why:'Low ferritin supports absolute iron deficiency. Start iron replacement when appropriate, but also assess the menstrual blood loss and other causes. Recheck Hb response within a few weeks.'},
+ {q:'A 58-year-old man has Hb 9.8 g/dL, MCV 88 fL and a low reticulocyte response. He has CKD. What should you check before considering an ESA?',a:['Ferritin and transferrin saturation, plus other reversible causes','Hb electrophoresis in every case','Serum amylase','Start ESA immediately'],correct:0,why:'CKD-related low erythropoietin is common, but iron deficiency and other correctable causes can coexist. KDIGO 2026 places iron assessment and correction before an ESA decision.'},
+ {q:'A patient has macrocytosis, paresthesia and an unsteady gait. B12 testing is pending. What matters most?',a:['Wait for the laboratory result before doing anything','Give folic acid alone','Take diagnostic bloods if feasible and do not delay B12 replacement','Prescribe oral iron'],correct:2,why:'Neurological manifestations of B12 deficiency can become irreversible. NICE advises not delaying B12 replacement in suspected megaloblastic anemia with neurological symptoms.'}
+];
+let caseIndex=0,score=0,answered=false;
+function renderCase(){
+ const c=cases[caseIndex];answered=false;
+ document.getElementById('quizProgress').textContent=`CASE ${caseIndex+1} / ${cases.length}`;
+ document.getElementById('quizQuestion').textContent=c.q;
+ document.getElementById('answers').innerHTML=c.a.map((a,i)=>`<button class="answer" data-index="${i}">${String.fromCharCode(65+i)}. ${a}</button>`).join('');
+ document.getElementById('feedback').classList.remove('show');document.getElementById('feedback').textContent='';
+ document.getElementById('nextCase').disabled=true;document.getElementById('nextCase').textContent=caseIndex===cases.length-1?'Restart cases ↻':'Next case →';
+ document.getElementById('quizScore').textContent=`Score: ${score} / ${cases.length}`;
+ document.querySelectorAll('.answer').forEach(btn=>btn.addEventListener('click',()=>chooseAnswer(Number(btn.dataset.index))));
+}
+function chooseAnswer(i){if(answered)return;answered=true;const c=cases[caseIndex];const buttons=[...document.querySelectorAll('.answer')];buttons.forEach((b,j)=>{b.disabled=true;if(j===c.correct)b.classList.add('correct');else if(j===i)b.classList.add('wrong')});if(i===c.correct)score++;const fb=document.getElementById('feedback');fb.innerHTML=`<b>${i===c.correct?'Correct.':'Not quite.'}</b> ${c.why}`;fb.classList.add('show');document.getElementById('quizScore').textContent=`Score: ${score} / ${cases.length}`;document.getElementById('nextCase').disabled=false;}
+document.getElementById('nextCase').addEventListener('click',()=>{if(caseIndex===cases.length-1){caseIndex=0;score=0}else caseIndex++;renderCase()});
+renderCase();
+</script>
+</body>
+</html>
